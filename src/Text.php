@@ -4,6 +4,16 @@ namespace Starburst\Utils;
 
 final class Text
 {
+	private const LOCALE_TO_TRANSLITERATOR_ID = [
+		'de' => 'de-ASCII',
+		'is' => '', // covered by latin-ASCII
+		'en' => '', // covered by latin-ASCII
+		'ru' => 'Russian-Latin',
+		'uk' => 'Ukrainian-Latin',
+	];
+
+	/** @var array<string, \Transliterator> */
+	private static array $transliterators = [];
 
 	/**
 	 * Removes control characters, normalizes line breaks to `\n`, removes leading and trailing blank lines,
@@ -49,5 +59,50 @@ final class Text
 		}
 
 		return mb_substr($string, 0, $maxLen) . $append;
+	}
+
+	public static function slugify(
+		string $string,
+		string $separator = '-',
+		bool $allowPeriod = false,
+		string $locale = null,
+	): string {
+		$locale ??= 'is';
+		if (!isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale])) {
+			throw new \InvalidArgumentException('Invalid locale. "is", "en", "de" allowed');
+		}
+
+		$period = $allowPeriod ? '.' : '';
+		$localeKey = $locale . $period;
+		if (!isset(self::$transliterators[$localeKey])) {
+			$rules = [
+				':: latin-ASCII;',
+				':: Any-Latin;',
+				':: NFD;',
+				':: [:Nonspacing Mark:] Remove;',
+				':: NFC;',
+				':: [^-'.$period.'[:^Punctuation:]] Remove;',
+				':: Lower();',
+				'[:^L:] { [-] > ;',
+				'[-] } [:^L:] > ;',
+				"[-[:Separator:]]+ > '$separator';",
+			];
+			if (self::LOCALE_TO_TRANSLITERATOR_ID[$locale]) {
+				array_unshift($rules, ':: ' . self::LOCALE_TO_TRANSLITERATOR_ID[$locale] . ';');
+			}
+
+			$transliterator = \Transliterator::createFromRules(implode('', $rules));
+			if (!$transliterator) {
+				throw new \BadMethodCallException('Failed to create transliterator');
+			}
+			self::$transliterators[$localeKey] = $transliterator;
+		}
+
+		$slug = self::$transliterators[$localeKey]->transliterate($string);
+		if (!$slug) {
+			throw new \BadMethodCallException(sprintf('Unable to transliterate string: %s', $string));
+		}
+
+		return $slug;
 	}
 }
