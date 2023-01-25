@@ -69,7 +69,9 @@ final class Text
 	): string {
 		$locale ??= 'is';
 		if (!isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale])) {
-			throw new \InvalidArgumentException('Invalid locale. "is", "en", "de" allowed');
+			throw new \InvalidArgumentException(
+				'Invalid locale. Only "' . implode(', ', array_keys(self::LOCALE_TO_TRANSLITERATOR_ID)) .'" allowed',
+			);
 		}
 
 		$period = $allowPeriod ? '.' : '';
