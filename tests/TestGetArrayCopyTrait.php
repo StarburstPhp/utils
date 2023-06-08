@@ -15,6 +15,11 @@ use Sunkan\Dictus\DateParser;
 
 class TestGetArrayCopyTrait extends TestCase
 {
+	protected function setUp(): void
+	{
+		ResolverCollection::setDefaultInstance(null);
+	}
+
 	public function testInfiniteRecursion(): void
 	{
 		$date1 = new \DateTimeImmutable('2021-12-13 00:00:00');
@@ -77,7 +82,7 @@ class TestGetArrayCopyTrait extends TestCase
 
 	public function testCustomValueResolver(): void
 	{
-		EntityWithHiddenProperty::setResolverCollection(new ResolverCollection(new CustomValueResolver()));
+		ResolverCollection::setDefaultInstance(new ResolverCollection(new CustomValueResolver()));
 		$entity = new EntityWithHiddenProperty('test', 'b', 'c');
 
 		$array = $entity->getArrayCopy();

@@ -8,7 +8,7 @@ final class ResolverCollection implements ValueResolver
 	private array $resolvers;
 	private static ?ValueResolver $defaultInstance = null;
 
-	public static function setDefaultInstance(ValueResolver $resolver): void
+	public static function setDefaultInstance(?ValueResolver $resolver): void
 	{
 		self::$defaultInstance = $resolver;
 	}

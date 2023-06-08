@@ -4,22 +4,13 @@ namespace Starburst\Utils\Traits;
 
 use Starburst\Utils\Attributes\HiddenProperty;
 use Starburst\Utils\ValueResolvers\ResolverCollection;
-use Starburst\Utils\ValueResolvers\ValueResolver;
 
 trait GetArrayCopyTrait
 {
-	protected static ValueResolver $valueResolver;
-
-	public static function setResolverCollection(ValueResolver $resolver): void
-	{
-		static::$valueResolver = $resolver;
-	}
-
 	public function getArrayCopy(\WeakMap $tracker = null): array
 	{
-		if (!isset(static::$valueResolver)) {
-			static::$valueResolver = ResolverCollection::default();
-		}
+		$valueResolver = ResolverCollection::default();
+
 		$tracker = $tracker ?? new \WeakMap();
 		$return = [];
 
@@ -29,7 +20,7 @@ trait GetArrayCopyTrait
 				continue;
 			}
 
-			$return[$property->name] = static::$valueResolver->resolve($property->getValue($this), $tracker, $property);
+			$return[$property->name] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
 		}
 		return $return;
 	}
