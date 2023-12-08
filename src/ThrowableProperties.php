@@ -2,7 +2,10 @@
 
 namespace Starburst\Utils;
 
-final readonly class ThrowableProperties implements \JsonSerializable, \Stringable
+/**
+ * @readonly
+ */
+final class ThrowableProperties implements \JsonSerializable, \Stringable
 {
 	public static function fromThrowable(\Throwable $e): self
 	{
