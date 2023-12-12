@@ -8,7 +8,6 @@ use Starburst\Utils\Validators;
 
 final class ValidatorTest extends TestCase
 {
-
 	/**
 	 * @return list<array{mixed, bool}>
 	 */

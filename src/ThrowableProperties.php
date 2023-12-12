@@ -98,7 +98,6 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 		public ?ThrowableProperties $previous,
 	) {}
 
-
 	public function __toString() : string
 	{
 		return $this->string;
