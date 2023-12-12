@@ -36,7 +36,7 @@ final class Json
 	public static function decodeList(string $value): array
 	{
 		$output = self::decode($value);
-		if (!is_array($output) || !array_is_list($output)) {
+		if (!is_array($output) || (!function_exists('array_is_list') || !array_is_list($output))) {
 			throw new \JsonException('Output is not an list');
 		}
 		return $output;
