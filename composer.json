@@ -11,11 +11,16 @@
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
-		"php": "^8.0"
+		"php": "^8.0",
+		"ext-intl": "*",
+		"ext-mbstring": "*"
 	},
 	"autoload": {
 		"psr-4": {
 			"Starburst\\Utils\\": "src/"
 		}
+	},
+	"suggest": {
+		"sunkan/dictus": "Needed to use date resolver and date utility class"
 	}
 }
