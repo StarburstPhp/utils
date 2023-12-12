@@ -13,7 +13,7 @@ use Starburst\Utils\ValueResolvers\ResolverCollection;
 use Sunkan\Dictus\Date;
 use Sunkan\Dictus\DateParser;
 
-class TestGetArrayCopyTrait extends TestCase
+class GetArrayCopyTraitTest extends TestCase
 {
 	protected function setUp(): void
 	{
