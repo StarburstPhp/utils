@@ -20,7 +20,9 @@ trait GetArrayCopyTrait
 				continue;
 			}
 
+			// Needed for php 8.0. See https://www.php.net/manual/en/reflectionproperty.getvalue.php
 			$property->setAccessible(true);
+
 			$return[$property->name] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
 		}
 		return $return;
