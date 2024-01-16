@@ -20,6 +20,7 @@ trait GetArrayCopyTrait
 				continue;
 			}
 
+			$property->setAccessible(true);
 			$return[$property->name] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
 		}
 		return $return;
