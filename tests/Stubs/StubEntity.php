@@ -10,7 +10,7 @@ final class StubEntity
 	use GetArrayCopyTrait;
 
 	public function __construct(
-		private UuidInterface $id,
-		private StubEntityOwner $owner,
+		public UuidInterface $id,
+		public StubEntityOwner $owner,
 	) {}
 }

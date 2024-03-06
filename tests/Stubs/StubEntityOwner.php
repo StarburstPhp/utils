@@ -9,6 +9,6 @@ final class StubEntityOwner
 	use GetArrayCopyTrait;
 
 	public function __construct(
-		private string $name,
+		public string $name,
 	) {}
 }

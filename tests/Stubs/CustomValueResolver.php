@@ -6,8 +6,11 @@ use Starburst\Utils\ValueResolvers\ValueResolver;
 
 final class CustomValueResolver implements ValueResolver
 {
-	public function resolve(mixed $value, \WeakMap $tracker, ?\ReflectionProperty $reflectionProperty = null): mixed
-	{
+	public function resolve(
+		mixed $value,
+		\WeakMap $tracker,
+		?\ReflectionProperty $reflectionProperty = null,
+	): mixed {
 		if ($value === 'test') {
 			return 42;
 		}

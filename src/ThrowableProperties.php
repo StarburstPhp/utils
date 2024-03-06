@@ -27,7 +27,7 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 	/**
 	 * @return array<string, mixed>
 	 */
-	private static function getOther(\Throwable $e) : array
+	private static function getOther(\Throwable $e): array
 	{
 		$skip = [
 			'message',
@@ -61,7 +61,7 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 	 *     type:string,
 	 * }>
 	 */
-	private static function getTrace(\Throwable $e) : array
+	private static function getTrace(\Throwable $e): array
 	{
 		$trace = [];
 
@@ -98,7 +98,7 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 		public ?ThrowableProperties $previous,
 	) {}
 
-	public function __toString() : string
+	public function __toString(): string
 	{
 		return $this->string;
 	}
@@ -106,7 +106,7 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 	/**
 	 * @return array<string, mixed>
 	 */
-	public function jsonSerialize() : array
+	public function jsonSerialize(): array
 	{
 		return $this->getArrayCopy();
 	}
@@ -114,7 +114,7 @@ final class ThrowableProperties implements \JsonSerializable, \Stringable
 	/**
 	 * @return array<string, mixed>
 	 */
-	public function getArrayCopy() : array
+	public function getArrayCopy(): array
 	{
 		return get_object_vars($this);
 	}

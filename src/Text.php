@@ -69,9 +69,10 @@ final class Text
 	): string {
 		$locale ??= 'is';
 		if (!isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale])) {
-			throw new \InvalidArgumentException(
-				'Invalid locale. Only "' . implode(', ', array_keys(self::LOCALE_TO_TRANSLITERATOR_ID)) .'" allowed',
-			);
+			throw new \InvalidArgumentException(sprintf(
+				'Invalid locale. Only "%s" allowed',
+				implode(', ', array_keys(self::LOCALE_TO_TRANSLITERATOR_ID)),
+			));
 		}
 
 		$period = $allowPeriod ? '.' : '';
@@ -83,7 +84,7 @@ final class Text
 				':: NFD;',
 				':: [:Nonspacing Mark:] Remove;',
 				':: NFC;',
-				':: [^-'.$period.'[:^Punctuation:]] Remove;',
+				':: [^-' . $period . '[:^Punctuation:]] Remove;',
 				':: Lower();',
 				'[:^L:] { [-] > ;',
 				'[-] } [:^L:] > ;',

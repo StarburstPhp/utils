@@ -16,7 +16,8 @@ final class ThrowablePropertiesTest extends TestCase
 			$prev = new Exception('prev message');
 			$line = __LINE__ + 1;
 			throw new FakeException('fake message', 88, $prev);
-		} catch (Throwable $e) {
+		}
+		catch (Throwable $e) {
 			$t = ThrowableProperties::fromThrowable($e);
 			$this->assertInstanceOf(ThrowableProperties::class, $t);
 			$this->assertSame(FakeException::class, $t->class);
@@ -40,7 +41,8 @@ final class ThrowablePropertiesTest extends TestCase
 			$prev = new Exception('prev message');
 			$line = __LINE__ + 1;
 			throw new FakeException('fake message', 88, $prev);
-		} catch (Throwable $e) {
+		}
+		catch (Throwable $e) {
 			if (!extension_loaded('xdebug')) {
 				$this->assertSame('{}', json_encode($e));
 			}

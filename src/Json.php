@@ -6,7 +6,7 @@ final class Json
 {
 	public static function encode(mixed $value): string
 	{
-		return json_encode($value, JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR|JSON_INVALID_UTF8_SUBSTITUTE);
+		return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE);
 	}
 
 	public static function decode(string $value): mixed
@@ -14,7 +14,7 @@ final class Json
 		return json_decode(
 			$value,
 			associative: true,
-			flags: JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR|JSON_INVALID_UTF8_SUBSTITUTE,
+			flags: JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE,
 		);
 	}
 
