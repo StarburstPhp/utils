@@ -88,7 +88,7 @@ final class Text
 				':: Lower();',
 				'[:^L:] { [-] > ;',
 				'[-] } [:^L:] > ;',
-				"[-[:Separator:]]+ > '$separator';",
+				"[-[:Separator:]]+ > '" . $separator . "';",
 			];
 			if (self::LOCALE_TO_TRANSLITERATOR_ID[$locale]) {
 				array_unshift($rules, ':: ' . self::LOCALE_TO_TRANSLITERATOR_ID[$locale] . ';');
