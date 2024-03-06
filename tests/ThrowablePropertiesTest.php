@@ -28,6 +28,7 @@ final class ThrowablePropertiesTest extends TestCase
 			$this->assertSame(['foo' => 'bar', 'baz' => 'dib'], $t->other);
 			$this->assertNotEmpty($t->trace);
 			foreach ($t->trace as $info) {
+				// @phpstan-ignore-next-line - we are verifying it can't happen
 				$this->assertFalse(array_key_exists('args', $info));
 			}
 			$this->assertInstanceOf(ThrowableProperties::class, $t->previous);
@@ -47,6 +48,7 @@ final class ThrowablePropertiesTest extends TestCase
 				$this->assertSame('{}', json_encode($e));
 			}
 			$t = ThrowableProperties::fromThrowable($e);
+			/** @var \stdClass $j */
 			$j = json_decode((string)json_encode($t));
 			$this->assertSame(FakeException::class, $j->class);
 			$this->assertSame('fake message', $j->message);
