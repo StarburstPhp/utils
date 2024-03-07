@@ -2,6 +2,7 @@
 
 namespace Starburst\Utils\Traits;
 
+use Starburst\Utils\Attributes\CustomName;
 use Starburst\Utils\Attributes\HiddenProperty;
 use Starburst\Utils\ValueResolvers\ResolverCollection;
 
@@ -23,11 +24,16 @@ trait GetArrayCopyTrait
 			if ($property->getAttributes(HiddenProperty::class)) {
 				continue;
 			}
+			$propertyName = $property->name;
+			$customNameAttributes = $property->getAttributes(CustomName::class);
+			if ($customNameAttributes) {
+				$propertyName = $customNameAttributes[0]->newInstance()->name;
+			}
 
 			// Needed for php 8.0. See https://www.php.net/manual/en/reflectionproperty.getvalue.php
 			$property->setAccessible(true);
 
-			$return[$property->name] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
+			$return[$propertyName] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
 		}
 		return $return;
 	}
