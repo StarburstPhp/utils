@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Starburst\Utils\Tests\Stubs\CustomDateFormatEntity;
 use Starburst\Utils\Tests\Stubs\CustomValueResolver;
+use Starburst\Utils\Tests\Stubs\EntityWithCustomOutputNames;
 use Starburst\Utils\Tests\Stubs\EntityWithHiddenProperty;
 use Starburst\Utils\Tests\Stubs\EntityWithSelf;
 use Starburst\Utils\Tests\Stubs\TimeEntity;
@@ -88,5 +89,19 @@ class GetArrayCopyTraitTest extends TestCase
 		$array = $entity->getArrayCopy();
 		$this->assertNotSame($entity->a, $array['a']);
 		$this->assertSame(42, $array['a']);
+	}
+
+	public function testCustomOutputFieldName(): void
+	{
+		$entity = new EntityWithCustomOutputNames(
+			'value1',
+			'value2',
+			'value3',
+		);
+
+		$array = $entity->getArrayCopy();
+		$this->assertArrayNotHasKey('b', $array);
+		$this->assertArrayHasKey('test', $array);
+		$this->assertSame('value2', $array['test']);
 	}
 }
