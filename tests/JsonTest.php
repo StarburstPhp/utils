@@ -100,7 +100,7 @@ final class JsonTest extends TestCase
 	public static function jsonListProvider(): array
 	{
 		return [
-			'empty list' => ["[]", []],
+			'empty list' => ['[]', []],
 			'single item' => ['["a"]', ['a']],
 			'multiple items' => ['["a","b","c"]', ['a', 'b', 'c']],
 		];

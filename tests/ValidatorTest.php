@@ -14,10 +14,10 @@ final class ValidatorTest extends TestCase
 	public static function dataProviderForIsUnicode(): array
 	{
 		return [
-			["a", true],
+			['a', true],
 			["\x8F", false],
 			[10, false],
-			["Test Unicode string 💻", true],
+			['Test Unicode string 💻', true],
 		];
 	}
 
@@ -27,7 +27,7 @@ final class ValidatorTest extends TestCase
 		$this->assertSame($expectedResult, Validators::isUnicode($value));
 	}
 
-	public function testValidKennitala() : void
+	public function testValidKennitala(): void
 	{
 		$validKennitala = '5209032750';
 		$this->assertTrue(
@@ -36,7 +36,7 @@ final class ValidatorTest extends TestCase
 		);
 	}
 
-	public function testKennitalaWithInValidChecksum() : void
+	public function testKennitalaWithInValidChecksum(): void
 	{
 		$validKennitala = '5209132751';
 		$this->assertFalse(
@@ -45,7 +45,7 @@ final class ValidatorTest extends TestCase
 		);
 	}
 
-	public function testInvalidKennitala() : void
+	public function testInvalidKennitala(): void
 	{
 		$invalidKennitala = 'abcd20393939';
 		$this->assertFalse(
@@ -54,7 +54,7 @@ final class ValidatorTest extends TestCase
 		);
 	}
 
-	public function testKennitalaWithWrongFormat() : void
+	public function testKennitalaWithWrongFormat(): void
 	{
 		$wrongFormatKennitala = '120170';
 		$this->assertFalse(

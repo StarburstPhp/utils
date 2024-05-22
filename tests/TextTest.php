@@ -10,7 +10,7 @@ final class TextTest extends TestCase
 	public function testTruncate(): void
 	{
 		// Test string shorter than max length.
-		$string = "short";
+		$string = 'short';
 		$result = Text::truncate($string, 10);
 		$this->assertEquals(
 			$string,
@@ -19,7 +19,7 @@ final class TextTest extends TestCase
 		);
 
 		// Test string exactly the max length.
-		$string = "just enough";
+		$string = 'just enough';
 		$result = Text::truncate($string, 11);
 		$this->assertEquals(
 			$string,
@@ -28,7 +28,7 @@ final class TextTest extends TestCase
 		);
 
 		// Test string longer than max length.
-		$string = "this string is too long for the limit";
+		$string = 'this string is too long for the limit';
 		$result = Text::truncate($string, 20);
 		// Expecting: "this string is too..."
 		$expected = "this string is too\u{2026}";
@@ -39,7 +39,7 @@ final class TextTest extends TestCase
 		);
 
 		// Test string where we can't respect word boundary due to short limit.
-		$string = "supercalifragilistic";
+		$string = 'supercalifragilistic';
 		$result = Text::truncate($string, 10);
 		// Expecting: "supercali..."
 		$expected = "supercali\u{2026}";
@@ -50,7 +50,7 @@ final class TextTest extends TestCase
 		);
 
 		// Test string truncation with max length less than append string.
-		$string = "any string";
+		$string = 'any string';
 		$result = Text::truncate($string, 5);
 		$this->assertEquals(
 			"any\u{2026}",
