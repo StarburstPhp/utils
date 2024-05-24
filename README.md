@@ -1,7 +1,6 @@
 # Starburst Utils
 
-[![Build Status](https://github.com/StarburstPhp/utils/actions/workflows/continuous-integration.yml/badge.svg?branch=main)](https://github.com/StarburstPhp/utils/actions/workflows/continuous-integration.yml)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/StarburstPhp/utils.svg)](https://packagist.org/packages/StarburstPhp/utils)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/starburst/utils.svg)](https://packagist.org/packages/starburst/utils)
 [![Software License](https://img.shields.io/github/license/StarburstPhp/utils.svg)](LICENSE)
 
 Package that contain some common helper classes
