@@ -23,21 +23,26 @@ The `Starburst\Utils\Json` class provides static methods for encoding and
 decoding Json in PHP.
 Below, you'll find detailed documentation on how to use it:
 
-#### `encode(mixed $value): string`
+#### `encode(mixed $value, bool $encodeNull = true): ?string`
 
 This method accepts a variable of any type and converts it to a JSON string.
 
 **Parameters:**
 
 * `$value (mixed)`: The value you want to encode to JSON.
+* `$encodeNull (bool)`: If we should encode `null` as `string` or not
 
 **Returns:**
 
-* JSON Encoded string
+* JSON Encoded string. If `$encodeNull` is false this can also return null
 
 **Usage:**
 ```php
 $jsonString = \Starburst\Utils\Json::encode(["name" => "John Doe", "age" => 30]);
+
+// behaviour is using encodeNull flag 
+\Starburst\Utils\Json::encode(null, encodeNull: true) === 'null';
+\Starburst\Utils\Json::encode(null, encodeNull: false) === null;
 ```
 
 #### `decode(string $value): mixed`
@@ -57,7 +62,7 @@ This method accepts a JSON string and decodes it to the corresponding PHP value 
 $phpValue = \Starburst\Utils\Json::decode($jsonString);
 ```
 
-#### `decodeArray(string $value): array`
+#### `decodeArray(string $value, bool $allowNull = false): ?array`
 
 This method decodes a JSON string to an associative array in PHP.
 
@@ -66,6 +71,7 @@ The method throws a JsonException if the decoded value is not an array.
 **Parameters:**
 
 * `$value (string)`: The JSON string you want to decode to an array.
+* `$allowNull (bool)`: Allow encoded null values to return null without exception
 
 **Returns:**
 
@@ -74,9 +80,13 @@ The method throws a JsonException if the decoded value is not an array.
 **Usage:**
 ```php
 $associativeArray = \Starburst\Utils\Json::decodeArray($jsonString);
+
+// behaviour is using allowNull flag 
+\Starburst\Utils\Json::decodeArray('null', allowNull: false); // throw exception
+\Starburst\Utils\Json::decodeArray('null', allowNull: true) === null;
 ```
 
-#### `decodeList(string $value): array`
+#### `decodeList(string $value, bool $allowNull = false): ?array`
 
 This method decodes a JSON string to a numeric array (list) in PHP.
 
@@ -85,6 +95,7 @@ The method throws a JsonException if the decoded value is not a list.
 **Parameters:**
 
 * `$value (string)`: The JSON string you want to decode to an array.
+* `$allowNull (bool)`: Allow encoded null values to return null without exception
 
 **Returns:**
 
@@ -93,6 +104,10 @@ The method throws a JsonException if the decoded value is not a list.
 **Usage:**
 ```php
 $list = \Starburst\Utils\Json::decodeList($jsonString);
+
+// behaviour is using allowNull flag 
+\Starburst\Utils\Json::decodeList('null', allowNull: false); // throw exception
+\Starburst\Utils\Json::decodeList('null', allowNull: true) === null;
 ```
 
 ### Validators

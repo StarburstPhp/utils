@@ -30,6 +30,22 @@ final class JsonTest extends TestCase
 		Json::encode($value);
 	}
 
+	public function testEncodeNull(): void
+	{
+		$value = null;
+		$jsonResult = Json::encode($value);
+
+		$this->assertSame('null', $jsonResult);
+	}
+
+	public function testDontEncodeNull(): void
+	{
+		$value = null;
+		$jsonResult = Json::encode($value, encodeNull: false);
+
+		$this->assertNull($jsonResult);
+	}
+
 	public function testDecodeMethod(): void
 	{
 		$valueToDecode = '{"name":"John","age":30,"city":"New York"}';
@@ -68,6 +84,14 @@ final class JsonTest extends TestCase
 		Json::decodeArray($json);
 	}
 
+	public function testEncodedNullFailsDecodeArray(): void
+	{
+		$this->expectException(JsonException::class);
+		$this->expectExceptionMessage('Output is not an array');
+
+		Json::decodeArray('null');
+	}
+
 	public function testDecodeArrayWithEmptyInput(): void
 	{
 		$json = '{}';
@@ -78,6 +102,12 @@ final class JsonTest extends TestCase
 		$this->assertSame($expectedResult, $result);
 	}
 
+	public function testDecodeArrayAllowNullValue(): void
+	{
+		$result = Json::decodeArray('null', allowNull: true);
+		$this->assertNull($result);
+	}
+
 	/**
 	 * @param array<mixed> $expectedList
 	 */
@@ -85,6 +115,20 @@ final class JsonTest extends TestCase
 	public function testDecodeList(string $json, array $expectedList): void
 	{
 		$this->assertSame($expectedList, Json::decodeList($json));
+	}
+
+	public function testEncodedNullFailsDecodeList(): void
+	{
+		$this->expectException(JsonException::class);
+		$this->expectExceptionMessage('Output is not an list');
+
+		Json::decodeList('null');
+	}
+
+	public function testDecodeListAllowNullValue(): void
+	{
+		$result = Json::decodeList('null', allowNull: true);
+		$this->assertNull($result);
 	}
 
 	public function testDecodeListException(): void
