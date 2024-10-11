@@ -4,6 +4,7 @@ namespace Starburst\Utils\Traits;
 
 use Starburst\Utils\Attributes\CustomName;
 use Starburst\Utils\Attributes\HiddenProperty;
+use Starburst\Utils\Attributes\IgnoreNullValues;
 use Starburst\Utils\ValueResolvers\ResolverCollection;
 
 trait GetArrayCopyTrait
@@ -20,6 +21,7 @@ trait GetArrayCopyTrait
 		$return = [];
 
 		$objReflection = new \ReflectionClass($this);
+		$stripNullValues = $objReflection->getAttributes(IgnoreNullValues::class) ?: false;
 		foreach ($objReflection->getProperties() as $property) {
 			if ($property->getAttributes(HiddenProperty::class)) {
 				continue;
@@ -33,7 +35,11 @@ trait GetArrayCopyTrait
 			// Needed for php 8.0. See https://www.php.net/manual/en/reflectionproperty.getvalue.php
 			$property->setAccessible(true);
 
-			$return[$propertyName] = $valueResolver->resolve($property->getValue($this), $tracker, $property);
+			$resolvedValue = $valueResolver->resolve($property->getValue($this), $tracker, $property);
+			if ($stripNullValues && $resolvedValue === null) {
+				continue;
+			}
+			$return[$propertyName] = $resolvedValue;
 		}
 		return $return;
 	}

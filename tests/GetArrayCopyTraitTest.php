@@ -9,6 +9,7 @@ use Starburst\Utils\Tests\Stubs\CustomValueResolver;
 use Starburst\Utils\Tests\Stubs\EntityWithCustomOutputNames;
 use Starburst\Utils\Tests\Stubs\EntityWithHiddenProperty;
 use Starburst\Utils\Tests\Stubs\EntityWithSelf;
+use Starburst\Utils\Tests\Stubs\EntityWithStripedNull;
 use Starburst\Utils\Tests\Stubs\TimeEntity;
 use Starburst\Utils\ValueResolvers\ResolverCollection;
 use Sunkan\Dictus\Date;
@@ -103,5 +104,17 @@ class GetArrayCopyTraitTest extends TestCase
 		$this->assertArrayNotHasKey('b', $array);
 		$this->assertArrayHasKey('test', $array);
 		$this->assertSame('value2', $array['test']);
+	}
+
+	public function testStripNullValues(): void
+	{
+		$entity = new EntityWithStripedNull(
+			new \DateTimeImmutable(),
+		);
+
+		$array = $entity->getArrayCopy();
+		foreach ($array as $value) {
+			$this->assertNotNull($value);
+		}
 	}
 }
