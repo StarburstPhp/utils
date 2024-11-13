@@ -19,7 +19,6 @@ final class ThrowablePropertiesTest extends TestCase
 		}
 		catch (Throwable $e) {
 			$t = ThrowableProperties::fromThrowable($e);
-			$this->assertInstanceOf(ThrowableProperties::class, $t);
 			$this->assertSame(FakeException::class, $t->class);
 			$this->assertSame('fake message', $t->message);
 			$this->assertSame(88, $t->code);
@@ -56,8 +55,10 @@ final class ThrowablePropertiesTest extends TestCase
 			$this->assertSame(__FILE__, $j->file);
 			$this->assertSame($line, $j->line);
 			$this->assertEquals((object) ['foo' => 'bar', 'baz' => 'dib'], $j->other);
+			$this->assertIsArray($j->trace);
 			$this->assertNotEmpty($j->trace);
 			foreach ($j->trace as $info) {
+				$this->assertIsObject($info);
 				$this->assertFalse(property_exists($info, 'args'));
 			}
 			$this->assertNotEmpty($j->previous);

@@ -22,6 +22,7 @@ final class Text
 	public static function normalize(string $string): string
 	{
 		// convert to compressed normal form (NFC)
+		/** @var false|string $n */
 		$n = \Normalizer::normalize($string, \Normalizer::FORM_C);
 		if ($n !== false) {
 			$string = $n;

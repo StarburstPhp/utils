@@ -38,6 +38,7 @@ final class Json
 		if (!is_array($output)) {
 			throw new \JsonException('Output is not an array');
 		}
+		/** @var array<string, mixed> $output*/
 		return $output;
 	}
 

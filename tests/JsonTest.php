@@ -14,7 +14,6 @@ final class JsonTest extends TestCase
 		$expectedResult = '{"name":"John Doe","email":"john.doe@example.com"}';
 		$jsonResult = Json::encode(['name' => 'John Doe', 'email' => 'john.doe@example.com']);
 
-		$this->assertIsString($jsonResult);
 		$this->assertEquals($expectedResult, $jsonResult);
 	}
 

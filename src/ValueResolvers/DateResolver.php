@@ -21,15 +21,18 @@ final class DateResolver implements ValueResolver
 			return (new DateTimeFormatter($formatInstance->format))->format($value);
 		}
 		if ($value instanceof Time) {
+			/** @var DateTimeFormatter|null $timeFormatter */
 			static $timeFormatter = null;
 			$timeFormatter = $timeFormatter ?? new DateTimeFormatter(DateTimeFormat::TIME);
 			return $timeFormatter->format($value);
 		}
 		if ($value instanceof Date) {
+			/** @var DateTimeFormatter|null $dayFormatter */
 			static $dayFormatter = null;
 			$dayFormatter = $dayFormatter ?? new DateTimeFormatter(DateTimeFormat::DATE);
 			return $dayFormatter->format($value);
 		}
+		/** @var DateTimeFormatter|null $dateFormatter */
 		static $dateFormatter = null;
 		$dateFormatter = $dateFormatter ?? new DateTimeFormatter(DateTimeFormat::JSON);
 		return $dateFormatter->format($value);
