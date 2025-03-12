@@ -66,9 +66,8 @@ final class Text
 		string $string,
 		string $separator = '-',
 		bool $allowPeriod = false,
-		string $locale = null,
+		string $locale = 'is',
 	): string {
-		$locale ??= 'is';
 		if (!isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale])) {
 			throw new \InvalidArgumentException(sprintf(
 				'Invalid locale. Only "%s" allowed',

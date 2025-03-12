@@ -13,7 +13,7 @@ trait GetArrayCopyTrait
 	 * @param \WeakMap<object, mixed>|null $tracker
 	 * @return array<string, mixed>
 	 */
-	public function getArrayCopy(\WeakMap $tracker = null): array
+	public function getArrayCopy(?\WeakMap $tracker = null): array
 	{
 		$valueResolver = ResolverCollection::default();
 
