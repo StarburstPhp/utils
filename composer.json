@@ -20,8 +20,5 @@
 		"psr-4": {
 			"Starburst\\Utils\\": "src/"
 		}
-	},
-	"suggest": {
-		"sunkan/dictus": "Needed to use date resolver and date utility class"
 	}
 }
