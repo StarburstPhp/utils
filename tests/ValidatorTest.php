@@ -63,6 +63,36 @@ final class ValidatorTest extends TestCase
 		);
 	}
 
+	public function testValidPhoneNumber(): void
+	{
+		$phoneNumber = '1234567';
+		$this->assertTrue(Validators::isPhoneNumber($phoneNumber));
+	}
+
+	public function testValidPhoneNumberWithAreaCode(): void
+	{
+		$phoneNumber = '+3541234567';
+		$this->assertTrue(Validators::isPhoneNumber($phoneNumber));
+	}
+
+	public function testPhoneNumberTooShort(): void
+	{
+		$phoneNumber = '123456';
+		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
+	}
+
+	public function testPhoneNumberTooLong(): void
+	{
+		$phoneNumber = '12345678';
+		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
+	}
+
+	public function testPhoneNumberContainsLetters(): void
+	{
+		$phoneNumber = '123456U';
+		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
+	}
+
 	/**
 	 * @return list<array{string, bool}>
 	 */

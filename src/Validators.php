@@ -61,4 +61,16 @@ final class Validators
 			$)Dix
 			XX, $value);
 	}
+
+
+	/**
+	 * Checks if the value is a valid phone number based pm the input locale
+	 */
+	public static function isPhoneNumber(string $value, string $locale = 'is'): bool
+	{
+		if ($locale === 'is') {
+			return preg_match('#^\d{7}$#', $value) || preg_match('#^\+\d{9,}$#', $value);
+		}
+		return false;
+	}
 }
