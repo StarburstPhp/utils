@@ -64,7 +64,7 @@ final class Validators
 
 
 	/**
-	 * Checks if the value is a valid phone number based pm the input locale
+	 * Checks if the value is a valid phone number based on the input locale
 	 */
 	public static function isPhoneNumber(string $value, string $locale = 'is'): bool
 	{
