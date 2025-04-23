@@ -63,33 +63,39 @@ final class ValidatorTest extends TestCase
 		);
 	}
 
-	public function testValidPhoneNumber(): void
+	/**
+	 * @return array<string, array{0: string}>
+	 */
+	public static function validPhoneNumbers(): array
 	{
-		$phoneNumber = '1234567';
+		return [
+			'simple' => ['1234567'],
+			'with country prefix' => ['+3541234567'],
+		];
+	}
+
+	/**
+	 * @return array<string, array{0: string}>
+	 */
+	public static function invalidPhoneNumbers(): array
+	{
+		return [
+			'to short' => ['123456'],
+			'to long' => ['123456123456'],
+			'contains letter' => ['123456U'],
+			'invalid country code' => ['+4612345671'],
+		];
+	}
+
+	#[DataProvider('validPhoneNumbers')]
+	public function testValidPhoneNumber(string $phoneNumber): void
+	{
 		$this->assertTrue(Validators::isPhoneNumber($phoneNumber));
 	}
 
-	public function testValidPhoneNumberWithAreaCode(): void
+	#[DataProvider('invalidPhoneNumbers')]
+	public function testInvalidPhoneNumber(string $phoneNumber): void
 	{
-		$phoneNumber = '+3541234567';
-		$this->assertTrue(Validators::isPhoneNumber($phoneNumber));
-	}
-
-	public function testPhoneNumberTooShort(): void
-	{
-		$phoneNumber = '123456';
-		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
-	}
-
-	public function testPhoneNumberTooLong(): void
-	{
-		$phoneNumber = '12345678';
-		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
-	}
-
-	public function testPhoneNumberContainsLetters(): void
-	{
-		$phoneNumber = '123456U';
 		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
 	}
 
