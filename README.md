@@ -152,7 +152,7 @@ $isValid = \Starburst\Utils\Validators::isKennitala($value);
 
 #### `isEmail(string $value): bool`
 
-This function checks if the provided string is a valid email address. 
+This function checks if the provided string is a valid email address.
 Note that it only checks the syntax of the email and not if the email domain actually exists.
 
 **Parameters:**
@@ -167,6 +167,26 @@ Note that it only checks the syntax of the email and not if the email domain act
 
 ```php
 $isValid = \Starburst\Utils\Validators::isEmail($value);
+```
+
+#### `isPhoneNumber(string $value, string $local = 'is'): bool`
+
+This function checks if the provided string is a valid phone number.
+Note that at the moment it only support icelandic phone numbers 
+
+**Parameters:**
+
+* `$value (string)`: The value you want to check.
+* `$local (string)`: Local of phone number
+
+**Returns:**
+
+* True or false
+
+**Usage:**
+
+```php
+$isValid = \Starburst\Utils\Validators::isPhoneNumber($value);
 ```
 
 ### GetArrayCopy
