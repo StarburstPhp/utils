@@ -2,6 +2,7 @@
 
 namespace Starburst\Utils\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Starburst\Utils\Text;
 
@@ -107,5 +108,45 @@ final class TextTest extends TestCase
 		$string = "Line\r\nbreaks\nshould\rbe\n\nnormalized";
 		$expected = "Line\nbreaks\nshould\nbe\n\nnormalized";
 		$this->assertEquals($expected, Text::normalize($string));
+	}
+
+	/**
+	 * @return array<string, array{0: string, 1?: string}>
+	 */
+	public static function normalizeIcelandicPhoneNumberDataProvider(): array
+	{
+		return [
+			'full number' => ['+3541234567'],
+			'missing country code' => ['1234567', '+3541234567'],
+			'removes none numbers' => ['+354 123-45-67', '+3541234567'],
+		];
+	}
+
+	#[DataProvider('normalizeIcelandicPhoneNumberDataProvider')]
+	public function testNormalizeIcelandicPhoneNumber(string $phoneNumber, ?string $expectedPhoneNumber = null): void
+	{
+		$expectedPhoneNumber ??= $phoneNumber;
+		$normalizedPhoneNumber = Text::normalizeIcelandicPhoneNumber($phoneNumber);
+		$this->assertSame($expectedPhoneNumber, $normalizedPhoneNumber);
+	}
+
+	/**
+	 * @return array<string, array{0: string}>
+	 */
+	public static function invalidPhoneNumbers(): array
+	{
+		return [
+			'to short' => ['123456'],
+			'to long' => ['123456123456'],
+			'contains letter' => ['123456U'],
+			'invalid country code' => ['+4612345671'],
+		];
+	}
+
+	#[DataProvider('invalidPhoneNumbers')]
+	public function testInvalidIcelandicPhoneNumber(string $phoneNumber): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$normalizedPhoneNumber = Text::normalizeIcelandicPhoneNumber($phoneNumber);
 	}
 }

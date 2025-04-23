@@ -108,4 +108,22 @@ final class Text
 
 		return $slug;
 	}
+
+	/**
+	 * Normalizes a phone number to the format +3541234567
+	 *
+	 * It will add the country code if it's missing
+	 */
+	public static function normalizeIcelandicPhoneNumber(string $phoneNumber): string
+	{
+		$phoneNumber = (string)preg_replace('/[^+0-9]/', '', $phoneNumber);
+		if (!preg_match('/^(\+354)?\d{7}$/', $phoneNumber, $matches)) {
+			throw new \InvalidArgumentException('Does not look like an Icelandic phone number');
+		}
+		if (!isset($matches[1])) {
+			$phoneNumber = '+354' . $phoneNumber;
+		}
+
+		return $phoneNumber;
+	}
 }

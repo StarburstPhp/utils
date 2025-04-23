@@ -206,6 +206,13 @@ Only if the string is truncated, an ellipsis (or something else set with the thi
 Converts a string into a URL-friendly slug by transliterating characters based on locale-specific rules.
 
 Supported locales: 'de', 'is', 'en', 'ru', 'uk'
+
+#### `normalizeIcelandicPhoneNumber(string $phoneNumber): string`
+
+Normalizes a phone number to the format +3541234567.
+
+If it's not a valid Icelandic phone number, throws InvalidArgumentException
+
 ### GetArrayCopy
 
 Trait that helps convert an object into an assoc array. 
