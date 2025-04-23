@@ -62,15 +62,8 @@ final class Validators
 			XX, $value);
 	}
 
-
-	/**
-	 * Checks if the value is a valid phone number based on the input locale
-	 */
-	public static function isPhoneNumber(string $value, string $locale = 'is'): bool
+	public static function isIcelandicPhoneNumber(string $value): bool
 	{
-		if ($locale === 'is') {
-			return preg_match('#^\d{7}$#', $value) || preg_match('#^\+354\d{7}$#', $value);
-		}
-		return false;
+		return preg_match('#^(\+354)?\d{7}$#', $value) === 1;
 	}
 }

@@ -90,13 +90,13 @@ final class ValidatorTest extends TestCase
 	#[DataProvider('validPhoneNumbers')]
 	public function testValidPhoneNumber(string $phoneNumber): void
 	{
-		$this->assertTrue(Validators::isPhoneNumber($phoneNumber));
+		$this->assertTrue(Validators::isIcelandicPhoneNumber($phoneNumber));
 	}
 
 	#[DataProvider('invalidPhoneNumbers')]
 	public function testInvalidPhoneNumber(string $phoneNumber): void
 	{
-		$this->assertFalse(Validators::isPhoneNumber($phoneNumber));
+		$this->assertFalse(Validators::isIcelandicPhoneNumber($phoneNumber));
 	}
 
 	/**

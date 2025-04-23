@@ -169,15 +169,13 @@ Note that it only checks the syntax of the email and not if the email domain act
 $isValid = \Starburst\Utils\Validators::isEmail($value);
 ```
 
-#### `isPhoneNumber(string $value, string $local = 'is'): bool`
+#### `isIcelandicPhoneNumber(string $value): bool`
 
-This function checks if the provided string is a valid phone number.
-Note that at the moment it only support icelandic phone numbers 
+This function checks if the provided string is a valid icelandic phone number.
 
 **Parameters:**
 
 * `$value (string)`: The value you want to check.
-* `$local (string)`: Local of phone number
 
 **Returns:**
 
@@ -186,7 +184,7 @@ Note that at the moment it only support icelandic phone numbers
 **Usage:**
 
 ```php
-$isValid = \Starburst\Utils\Validators::isPhoneNumber($value);
+$isValid = \Starburst\Utils\Validators::isIcelandicPhoneNumber($value);
 ```
 
 ### GetArrayCopy
