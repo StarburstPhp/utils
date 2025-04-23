@@ -187,6 +187,25 @@ This function checks if the provided string is a valid icelandic phone number.
 $isValid = \Starburst\Utils\Validators::isIcelandicPhoneNumber($value);
 ```
 
+### Text
+
+Static class that helps normalize texts
+
+#### `normalize(string $value): string`
+
+Removes control characters, normalizes line breaks to `\n`, removes leading and trailing blank lines, 
+trims end spaces on lines, normalizes UTF-8 to the normal form of NFC.
+
+#### `truncate(string $string, int $maxLen, string $append = "\u{2026}"): string`
+
+Truncates a UTF-8 string to a given maximal length while trying not to split whole words.
+Only if the string is truncated, an ellipsis (or something else set with the third argument) is appended to the string.
+
+#### `slugify(string $string, string $separator = '-', bool $allowPeriod = false, string $locale = 'is'): string`
+
+Converts a string into a URL-friendly slug by transliterating characters based on locale-specific rules.
+
+Supported locales: 'de', 'is', 'en', 'ru', 'uk'
 ### GetArrayCopy
 
 Trait that helps convert an object into an assoc array. 
