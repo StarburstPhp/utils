@@ -69,7 +69,7 @@ final class Validators
 	public static function isPhoneNumber(string $value, string $locale = 'is'): bool
 	{
 		if ($locale === 'is') {
-			return preg_match('#^\d{7}$#', $value) || preg_match('#^\+\d{9,}$#', $value);
+			return preg_match('#^\d{7}$#', $value) || preg_match('#^\+354\d{7}$#', $value);
 		}
 		return false;
 	}
