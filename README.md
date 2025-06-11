@@ -308,3 +308,60 @@ $obj->getArrayCopy() === [
 	'value' => '24.05 kl. 08:12:42'
 ];
 ```
+
+### Path
+
+The `Path` class provides utility methods for working with file paths in a platform-independent manner.
+
+
+### `normalize(string $path): string`
+
+Normalizes a given file path.
+
+During normalization, all slashes are replaced by forward slashes ("/"). It also make sure to remove trailing slashes.
+Contrary to `canonicalize`, this method does not remove invalid or dot path segments. Consequently, 
+it is much more efficient and should be used whenever the given path is known to be a valid, absolute system path.
+
+**Example:**
+```php
+<?php
+
+use Starburst\Utils\Path;
+
+echo Path::normalize("\\xampp\\htdocs\\project\\images\\..\\css\\style.css");
+// => /xampp/htdocs/project/images/../css/style.css
+```
+
+#### `canonicalize(string $path): string`
+
+Normalizes and canonicalizes a given file path.
+
+**Example:**
+``` php
+<?php
+
+use Starburst\Utils\Path;
+
+echo Path::canonicalize("\starburst\public\..\css\style.css");
+// => /starburst/css/style.css
+
+echo Path::canonicalize("../css/./style.css");
+// => ../css/style.css
+```
+
+### `join(string ...$parts): string`
+
+Joins path segments into a single path.
+
+**Example:**
+```php
+<?php
+
+use Starburst\Utils\Path;
+
+echo Path::join('/var', 'www', 'project', 'images', 'style.css');
+// => /var/www/project/images/style.css
+
+echo Path::join('phar://my_phar.phar', 'path', 'to', 'file.txt');
+// => phar:///my_phar.phar/path/to/file.txt
+```
