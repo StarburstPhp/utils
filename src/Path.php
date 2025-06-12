@@ -81,18 +81,17 @@ final class Path
 
 	public static function join(string ...$parts): string
 	{
-		$finalPath = null;
-		$wasScheme = false;
+		$finalPath = '';
+		$root = null;
 
 		foreach ($parts as $path) {
 			if ($path === '') {
 				continue;
 			}
 
-			if ($finalPath === null) {
-				// For the first part we keep slashes, like '/top', 'C:\' or 'phar://'
-				$finalPath = $path;
-				$wasScheme = (str_contains($path, '://'));
+			if ($root === null) {
+				$root = str_contains($path, '://') ? $path : ($path[0] === '/' ? '/' : '');
+				$finalPath .= substr($path, strlen($root));
 				continue;
 			}
 
@@ -101,15 +100,13 @@ final class Path
 				$finalPath .= '/';
 			}
 
-			// If the first part included a scheme like 'phar://' allow current part to start with '/'
-			$finalPath .= $wasScheme ? $path : ltrim($path, '/');
-			$wasScheme = false;
+			$finalPath .= ltrim($path, '/');
 		}
 
-		if ($finalPath === null) {
+		if (!$finalPath) {
 			return '';
 		}
 
-		return self::canonicalize($finalPath);
+		return self::canonicalize($root . $finalPath);
 	}
 }
