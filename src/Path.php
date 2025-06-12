@@ -7,10 +7,11 @@ final class Path
 	/**
 	 * Canonicalizes the given path.
 	 *
-	 * During normalization, all slashes are replaced by forward slashes ("/").
+	 * During canonicalizing, all slashes are replaced by forward slashes ("/").
 	 * Furthermore, all "." and ".." segments are removed as far as possible.
 	 * ".." segments at the beginning of relative paths are not removed.
 	 *
+	 * ```php
 	 *     echo Path::canonicalize("\starburst\public\..\css\style.css");
 	 *     // => /starburst/css/style.css
 	 *
@@ -24,9 +25,7 @@ final class Path
 			return '';
 		}
 
-
 		$path = str_replace('\\', '/', $path);
-
 		$schemaRoot = strstr($path, '://', true) ?: '';
 		if ($schemaRoot) {
 			$schemaRoot .= '://';
@@ -39,25 +38,23 @@ final class Path
 		}
 		$canonicalParts = [];
 
-		// Collapse "." and "..", if possible
 		foreach ($parts as $part) {
 			if ($part === '.' || $part === '') {
 				continue;
 			}
 
-			// Collapse ".." with the previous part, if one exists
-			// Don't collapse ".." if the previous part is also ".."
+			// Only collapse ".." if the previous part is not ".."
 			if (
-				$part === '..' && count($canonicalParts) > 0
-				&& '..' !== $canonicalParts[count($canonicalParts) - 1]
+				$part === '..'
+				&& count($canonicalParts) > 0
+				&& $canonicalParts[count($canonicalParts) - 1] !== '..'
 			) {
 				array_pop($canonicalParts);
 
 				continue;
 			}
 
-			// Only add ".." prefixes for relative paths
-			if ('..' !== $part || '' === $root) {
+			if ($part !== '..' || $root === '') {
 				$canonicalParts[] = $part;
 			}
 		}
