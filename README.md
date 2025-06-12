@@ -318,7 +318,7 @@ The `Path` class provides utility methods for working with file paths in a platf
 
 Normalizes a given file path.
 
-During normalization, all slashes are replaced by forward slashes ("/"). It also make sure to remove trailing slashes.
+During normalization, all slashes are replaced by forward slashes ("/"). It also makes sure to remove trailing slashes.
 Contrary to `canonicalize`, this method does not remove invalid or dot path segments. Consequently, 
 it is much more efficient and should be used whenever the given path is known to be a valid, absolute system path.
 
@@ -337,7 +337,7 @@ echo Path::normalize("\\xampp\\htdocs\\project\\images\\..\\css\\style.css");
 Normalizes and canonicalizes a given file path.
 
 **Example:**
-``` php
+```php
 <?php
 
 use Starburst\Utils\Path;
@@ -351,7 +351,7 @@ echo Path::canonicalize("../css/./style.css");
 
 ### `join(string ...$parts): string`
 
-Joins path segments into a single path.
+Joins multiple parts into on a normalized and canonicalized path 
 
 **Example:**
 ```php
