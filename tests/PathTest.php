@@ -73,6 +73,10 @@ final class PathTest extends TestCase
 			['public/styles', 'public/styles'],
 			['public/styles/', 'public/styles'],
 
+			// paths with spaces in them
+			['public/stupid path/styles', 'public/stupid path/styles'],
+			['public/ stupid /styles', 'public/ stupid /styles'],
+			['public/stupid /styles', 'public/stupid /styles'],
 
 			// with schemas
 			['phar:///css/style.css', 'phar:///css/style.css'],

@@ -32,10 +32,7 @@ final class Path
 			$path = substr($path, strlen($schemaRoot));
 		}
 		$root = $path[0] === '/' ? '/' : '';
-		$parts = preg_split('# *[/\\\\]+ *#', trim($path, ' '));
-		if ($parts === false) {
-			throw new \InvalidArgumentException(sprintf('The path "%s" is not valid.', $path));
-		}
+		$parts = explode('/', trim($path, ' '));
 		$canonicalParts = [];
 
 		foreach ($parts as $part) {
