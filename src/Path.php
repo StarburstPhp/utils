@@ -64,9 +64,15 @@ final class Path
 	 *
 	 * During normalization, all slashes are replaced by forward slashes ("/").
 	 * Contrary to {@link canonicalize()}, this method does not remove invalid
-	 * or dot path segments. Consequently, it is much more efficient and should
-	 * be used whenever the given path is known to be a valid, absolute system
-	 * path.
+	 * or dot path segments.
+	 *
+	 * This method should mainly be used to normalize paths that are known to be valid
+	 *
+	 *  ```php
+	 *      echo Path::normalize("\starburst\public\..\css\style.css");
+	 *      // => /starburst/public/../css/style.css
+	 *  ```
+	 *
 	 */
 	public static function normalize(string $path): string
 	{
